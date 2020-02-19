@@ -123,10 +123,24 @@ class TryTest {
     }
 
     @Test
-    void orElseGetWithThrowableFailureTest() {
+    void ifSuccessOrElseGetWithThrowableFailureTest() {
         var result = getFailedTry();
 
         assertEquals(testException.toString(), result.getSuccessOrElseGet(Throwable::toString));
+    }
+
+    @Test
+    void ifSuccessOrElseSuccessTest() {
+        var result = getSuccessTry();
+
+        result.ifSuccessOrElse(x -> mockMethod(false), x -> mockMethod(true));
+    }
+
+    @Test
+    void ifSuccessOrElseFailureTest() {
+        var result = getFailedTry();
+
+        result.ifSuccessOrElse(x -> mockMethod(true), x -> mockMethod(false));
     }
 
     @Test

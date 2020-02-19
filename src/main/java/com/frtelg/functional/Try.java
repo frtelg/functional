@@ -2,6 +2,7 @@ package com.frtelg.functional;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -46,6 +47,8 @@ public abstract class Try<T> {
     public abstract T getSuccessOrElseGet(Supplier<T> that);
 
     public abstract T getSuccessOrElseGet(Function<Throwable, ? extends T> that);
+
+    public abstract void ifSuccessOrElse(Consumer<T> ifSuccess, Consumer<Throwable> ifFailure);
 
     public abstract <Y> Try<Y> map(CheckedFunction<? super T, ? extends Y> function);
 

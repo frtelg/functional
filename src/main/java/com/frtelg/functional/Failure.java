@@ -2,6 +2,7 @@ package com.frtelg.functional;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -34,6 +35,11 @@ public class Failure<T> extends Try<T> {
     public T getSuccessOrElseGet(Function<Throwable, ? extends T> that) {
         Objects.requireNonNull(that);
         return that.apply(throwable);
+    }
+
+    @Override
+    public void ifSuccessOrElse(Consumer<T> ifSuccess, Consumer<Throwable> ifFailure) {
+        ifFailure.accept(throwable);
     }
 
     @Override
